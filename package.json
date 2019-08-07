@@ -1,6 +1,6 @@
 {
   "name": "noname-scss-framework",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "scss framework",
   "main": "_framework.scss",
   "scripts": {
