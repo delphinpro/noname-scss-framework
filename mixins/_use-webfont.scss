@@ -1,0 +1,63 @@
+//==
+//== A mixin use-webfont
+//==
+//== Example usage:
+//==
+//== @include use-webfont(
+//==     'Open Sans',              // font-family
+//==     400,                      // font-weight
+//==     normal,                   // font-style
+//==     'OpenSans-Regular',       // filename
+//==     'subset-',                // filename prefix (if exists)
+//==     '../fonts/OpenSans/',     // path to font files (url)
+//==     (woff2, woff, svg),       // map of required formats
+//==     'OpenSans-Regular'        // internal svg id
+//== );
+//==
+//== ======================================= ==//
+
+$use-webfont-settings: (
+    font-display: fallback
+) !default;
+
+@mixin use-webfont(
+  $font-family,
+  $font-weight,
+  $font-style,
+  $filename,
+  $filename-prefix: '',
+  $path: '',
+  $formats: (eot, woff2, woff, ttf, svg),
+  $svg-id: $filename
+) {
+
+  $file: #{$path}#{$filename-prefix}#{$filename};
+  $eot: false;
+  $src: ();
+
+  @each $format in $formats {
+    @if $format == eot {
+      $eot: true;
+      $src: append($src, url('#{$file}.eot?#iefix') format('embedded-opentype'), comma);
+    } @else if $format == woff2 {
+      $src: append($src, url('#{$file}.woff2') format('woff2'), comma);
+    } @else if $format == woff {
+      $src: append($src, url('#{$file}.woff') format('woff'), comma);
+    } @else if $format == ttf {
+      $src: append($src, url('#{$file}.ttf') format('truetype'), comma);
+    } @else if $format == svg {
+      $src: append($src, url('#{$file}.svg##{$svg-id}') format('svg'), comma);
+    } @else {
+      @warn 'mixin use-webfont(): Unknown format: "#{$format}"';
+    }
+  }
+
+  @font-face {
+    font-family: $font-family;
+    src: if($eot, url('#{$file}.eot'), null);
+    src: $src;
+    font-weight: $font-weight;
+    font-style: $font-style;
+    font-display: if(map_has_key($use-webfont-settings, 'font-display'), map_get($use-webfont-settings, 'font-display'), null);
+  }
+}

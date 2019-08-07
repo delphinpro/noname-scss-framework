@@ -1,0 +1,109 @@
+//==
+//== Buttons
+//== ======================================= ==//
+
+@mixin nn-make-button-base() {
+  display: if(nn-compare($nn-buttons, flex, true), inline-flex, inline-block);
+  vertical-align: middle;
+  align-items: center;
+  user-select: none;
+  font-family: nn-map-get($nn-buttons, font-family);
+  font-weight: nn-map-get($nn-buttons, font-weight);
+  background-color: transparent;
+  color: nn-map-get($nn-reboot-config, body-color);
+  border: nn-map-get($nn-buttons, border-width) solid transparent;
+  text-align: center;
+  text-decoration: none;
+  transition: nn-map-get($nn-buttons, transition);
+  //  @include button-size($btn-padding-y, $btn-padding-x, $btn-font-size, $btn-line-height, $btn-border-radius);
+  margin: 0;
+  padding: 0;
+
+  &:hover {
+    color: nn-map-get($nn-reboot-config, body-color);
+    text-decoration: none;
+  }
+
+  &:focus,
+  &.focus {
+    outline: 0;
+    //box-shadow: $btn-focus-box-shadow;
+  }
+
+  // Disabled comes first so active can properly restyle
+  &.disabled,
+  &:disabled {
+    //opacity: $btn-disabled-opacity;
+    //@include box-shadow(none);
+  }
+
+  &:not(:disabled):not(.disabled):active,
+  &:not(:disabled):not(.disabled).active {
+    //@include box-shadow($btn-active-box-shadow);
+
+    &:focus {
+      //@include box-shadow($btn-focus-box-shadow, $btn-active-box-shadow);
+    }
+  }
+}
+
+@mixin nn-make-button-theme($background, $border: $background, $hover-background: darken($background, 7.5%), $hover-border: darken($border, 10%), $active-background: darken($background, 10%), $active-border: darken($border, 12.5%)) {
+  $btn-focus-width: nn-map-get($nn-buttons, focus-width);
+
+  color: color-yiq($background);
+  background-color: $background;
+  border-color: $border;
+
+  &:hover {
+    color: color-yiq($hover-background);
+    background-color: $hover-background;
+    border-color: $hover-border;
+  }
+
+  &:focus,
+  &.focus {
+    box-shadow: 0 0 0 $btn-focus-width rgba(mix(color-yiq($background), $border, 15%), .5);
+  }
+
+  // Disabled comes first so active can properly restyle
+  &.disabled,
+  &:disabled {
+    color: color-yiq($background);
+    background-color: $background;
+    border-color: $border;
+  }
+
+  &:not(:disabled):not(.disabled):active,
+  &:not(:disabled):not(.disabled).active {
+    color: color-yiq($active-background);
+    background-color: $active-background;
+    border-color: $active-border;
+
+    &:focus {
+      box-shadow: 0 0 0 $btn-focus-width rgba(mix(color-yiq($background), $border, 15%), .5);
+    }
+  }
+}
+
+@mixin nn-make-button-size(
+  $padding-y,
+  $padding-x,
+  $font-size,
+  $line-height: null,
+  $border-radius: 0
+) {
+  $inner-class: nn-map-get($nn-buttons, inner-class);
+
+  @include font($font-size, $line-height);
+
+  @if ($border-radius > 0) {
+    border-radius: $border-radius;
+  }
+
+  padding-left: rhythm($padding-x);
+  padding-right: rhythm($padding-x);
+
+  > .#{$inner-class} {
+    @include rhythm-padding($padding-y);
+  }
+}

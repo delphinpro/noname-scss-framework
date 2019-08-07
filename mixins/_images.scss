@@ -1,0 +1,17 @@
+//==
+//== Mark not loaded images
+//== ======================================= ==//
+
+@mixin nn-mark-not-loaded-images($content: "Изображение не загружено (url: " attr(src) ")") {
+  img::after {
+    content: $content;
+    display: block;
+    font-size: 12px;
+    line-height: 1.4;
+    border: 1px solid red;
+    background: lightpink;
+    text-decoration: none;
+    color: #000;
+    max-width: 100%;
+  }
+}

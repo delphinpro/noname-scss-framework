@@ -1,0 +1,36 @@
+//==
+//== Typography
+//== ======================================= ==//
+
+
+@mixin nn-zero-first-last-margins($first: true, $last: true) {
+  @if $first {
+    &:first-child { margin-top: 0; }
+  }
+  @if $last {
+    &:last-child { margin-bottom: 0; }
+  }
+}
+
+@mixin nn-type-margins(
+  $zero-last-margin: nn-map-get($nn-type, zero-last-margin, true),
+  $zero-first-margin: nn-map-get($nn-type, zero-first-margin, true)
+) {
+  $margin-top: nn-map-get($nn-type, margin-top);
+  $margin-bottom: nn-map-get($nn-type, margin-bottom);
+
+  @if mixin_exists(rhythm-margins) {
+    @if $margin-top != null {
+      @include margin-leader($margin-top);
+    }
+    @if $margin-bottom != null {
+      @include margin-trailer($margin-bottom);
+    }
+  }
+
+  @include nn-zero-first-last-margins($zero-first-margin, $zero-last-margin);
+}
+
+@mixin nn-letter-spacing($value) {
+  letter-spacing: $value / 1000 * 1em;
+}

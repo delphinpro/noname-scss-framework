@@ -1,0 +1,87 @@
+//==
+//== NoName CSS Framework
+//==
+//== @author     delphinpro <delphinpro@yandex.ru>
+//== @copyright  copyright © 2019 delphinpro
+//== @license    licensed under the MIT license
+//== ======================================= ==//
+
+// The yiq lightness value that determines when the lightness of color changes from "dark" to "light". Acceptable values are between 0 and 255.
+$nn-yiq-contrasted-threshold: 150 !default;
+// Customize the light and dark text colors for use in our YIQ color contrast function.
+$nn-yiq-text-dark: #000 !default;
+$nn-yiq-text-light: #fff !default;
+
+$nn-strip-gradient-size: 16px !default;
+
+$nn-reboot-config: () !default;
+$nn-reboot-config: map_merge((
+  // Shim for "new" HTML5 structural elements to display correctly (IE10, older browsers)
+  shim-for-html5-elements: true,
+  // Lock a body (e.g. for opened modal)
+  body-lock-class: 'locked', // String or false
+  body-background-color: #fff,
+  body-color: #000,
+  font-family-base: sans-serif,
+  font-family-monospace: monospace,
+  font-family-headings: sans-serif,
+  hr-border-style: 1px solid #ccc,
+  enable-pointer-cursor-for-buttons: true,
+  link-color: #1284d0,
+  link-decoration: underline,
+  link-hover-color: red,
+  link-hover-decoration: underline,
+  transition-default: 250ms ease,
+), $nn-reboot-config);
+
+
+//== 1. font-size
+//== 2. line-height
+//== 3. margin-top
+//== 4. margin-bottom
+//== 5. text-transform
+$nn-headings: () !default;
+$nn-headings: map_merge((
+  h1: (32px, 2, 0, 1, none),
+  h2: (24px, 1.5, 0, 1, none),
+  h3: (18px, 1, 1.5, 1, none),
+  h4: (16px, 1, 1.5, 1, none),
+  h5: (16px, 1, 0, 0, none),
+  h6: (16px, 1, 0, 0, none),
+), $nn-headings);
+
+$nn-type: () !default;
+$nn-type: map_merge((
+  margin-top: null,
+  margin-bottom: null,
+  zero-last-margin: true,
+  zero-first-margin: true,
+), $nn-type);
+
+$nn-buttons: () !default;
+$nn-buttons: map_merge((
+  flex: true,
+  font-family: inherit,
+  font-weight: 400,
+  border-width: 1px,
+  focus-width: 0.2rem,
+  transition: (color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out),
+  inner-class: 'btn-content',
+  iconbox-class: 'btn-iconbox',
+), $nn-buttons);
+
+@import "mixins/service-functions";
+@import "mixins/functions";
+@import "mixins/transition";
+@import "mixins/gradients";
+@import "mixins/use-webfont";
+@import "mixins/reboot";
+@import "mixins/type-headings";
+@import "mixins/type";
+@import "mixins/svg";
+@import "mixins/size";
+@import "mixins/buttons";
+@import "mixins/images";
+@import "mixins/scrollbars";
+@import "mixins/abolute-stretch";
+

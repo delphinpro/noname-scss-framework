@@ -1,0 +1,11 @@
+//==
+//== Absolute stretch
+//== ======================================= ==//
+
+@mixin nn-absolute-stretch($position: 0) {
+  left: $position;
+  top: $position;
+  right: $position;
+  bottom: $position;
+  position: absolute;
+}

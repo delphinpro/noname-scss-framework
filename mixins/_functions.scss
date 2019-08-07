@@ -1,0 +1,16 @@
+//==
+//== Functions
+//== ======================================= ==//
+
+@function rem($px) {
+  @if variable_exists(rhythm-base-font-size) {
+    @return $px / $rhythm-base-font-size * 1rem;
+  } @else {
+    @return $px / 16px * 1rem;
+  }
+}
+
+@function em($font-size, $base: $rhythm-base-font-size) {
+  $base: if(variable_exists(rhythm-base-font-size), $rhythm-base-font-size, 16px);
+  @return ($font-size / $base) * 1em;
+}

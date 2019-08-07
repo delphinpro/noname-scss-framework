@@ -1,0 +1,20 @@
+//==
+//== Strip gradient
+//== ======================================= ==//
+
+@mixin nn-strip-gradient-animation() {
+  @keyframes strip-gradient-animation {
+    from { background-position: $nn-strip-gradient-size 0; }
+    to { background-position: 0 0; }
+  }
+}
+
+@mixin nn-strip-gradient($color: rgba(#fff, .25), $angle: 45deg) {
+  background-image: linear-gradient($angle, $color 25%, transparent 25%, transparent 50%, $color 50%, $color 75%, transparent 75%, transparent);
+  background-size: $nn-strip-gradient-size $nn-strip-gradient-size;
+}
+
+@mixin nn-strip-gradient-animated($color: rgba(#fff, .25), $angle: 45deg) {
+  @include nn-strip-gradient($color, $angle);
+  animation: strip-gradient-animation 0.5s linear infinite reverse;
+}

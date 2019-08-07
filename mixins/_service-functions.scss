@@ -1,0 +1,30 @@
+//==
+//== Service functions
+//== ======================================= ==//
+
+@function nn-map-get($map, $key, $default: null) {
+  @if map_has_key($map, $key) {
+    @return map_get($map, $key);
+  } @else {
+    @return $default;
+  }
+}
+
+@function nn-compare($map, $key, $actual) {
+  @return nn-map-get($map, $key) == $actual;
+}
+
+// Color contrast
+@function color-yiq($color, $dark: $nn-yiq-text-dark, $light: $nn-yiq-text-light) {
+  $r: red($color);
+  $g: green($color);
+  $b: blue($color);
+
+  $yiq: (($r * 299) + ($g * 587) + ($b * 114)) / 1000;
+
+  @if ($yiq >= $nn-yiq-contrasted-threshold) {
+    @return $dark;
+  } @else {
+    @return $light;
+  }
+}

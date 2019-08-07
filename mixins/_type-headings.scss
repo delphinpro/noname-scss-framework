@@ -1,0 +1,30 @@
+//==
+//== Type: headings
+//== ======================================= ==//
+
+@mixin heading($params) {
+  @if mixin_exists(font) {
+    @include font(nth($params, 1), nth($params, 2));
+    @include rhythm-margins(nth($params, 3), nth($params, 4));
+  }
+  @if nth($params, 5) != none {
+    text-transform: nth($params, 5);
+  }
+}
+
+@mixin nn-headings() {
+  %heading-base {
+    @content;
+  }
+
+  @each $h, $params in $nn-headings {
+    .#{$h} {
+      @extend %heading-base;
+      @include heading($params);
+
+      @at-root {
+        #{$h} { @extend .#{$h}; }
+      }
+    }
+  }
+}
