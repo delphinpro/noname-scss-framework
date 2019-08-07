@@ -1,11 +1,24 @@
 {
-  "name": "no-name-scss-framework",
+  "name": "noname-scss-framework",
   "version": "0.1.0",
-  "description": "Scss framework",
-  "main": "index.js",
+  "description": "scss framework",
+  "main": "_framework.scss",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/delphinpro/noname-scss-framework.git"
+  },
+  "keywords": [
+    "scss",
+    "mixins",
+    "framework"
+  ],
   "author": "delphinpro <delphinpro@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/delphinpro/noname-scss-framework/issues"
+  },
+  "homepage": "https://github.com/delphinpro/noname-scss-framework#readme"
 }
