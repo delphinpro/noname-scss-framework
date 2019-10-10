@@ -47,40 +47,52 @@
   }
 }
 
-@mixin nn-make-button-theme($background, $border: $background, $hover-background: darken($background, 7.5%), $hover-border: darken($border, 10%), $active-background: darken($background, 10%), $active-border: darken($border, 12.5%)) {
-  $btn-focus-width: nn-map-get($nn-buttons, focus-width);
+@mixin nn-make-button-theme($normal: (), $hover: (), $active: ()) {
+  $normal-background: nn-map-get($normal, background, transparent);
+  $normal-border-color: nn-map-get($normal, border-color, $normal-background);
+  $normal-color: nn-map-get($normal, color, color-yiq($normal-background));
 
-  color: color-yiq($background);
-  background-color: $background;
-  border-color: $border;
+  $hover-background: nn-map-get($hover, background, darken($normal-background, 7.5%));
+  $hover-border-color: nn-map-get($hover, border-color, darken($normal-border-color, 10%));
+  $hover-color: nn-map-get($hover, color, color-yiq($hover-background));
+
+  $active-background: nn-map-get($hover, background, darken($normal-background, 10%));
+  $active-border-color: nn-map-get($hover, border-color, darken($normal-border-color, 12.5%));
+  $active-color: nn-map-get($hover, color, color-yiq($active-background));
+
+  $btn-focus-width: nn-map-get($normal, focus-width, nn-map-get($nn-buttons, focus-width));
+
+  color: $normal-color;
+  background-color: $normal-background;
+  border-color: $normal-border-color;
 
   &:hover {
-    color: color-yiq($hover-background);
+    color: $hover-color;
     background-color: $hover-background;
-    border-color: $hover-border;
+    border-color: $hover-border-color;
   }
 
   &:focus,
   &.focus {
-    box-shadow: 0 0 0 $btn-focus-width rgba(mix(color-yiq($background), $border, 15%), .5);
+    box-shadow: 0 0 0 $btn-focus-width rgba(mix(color-yiq($normal-background), $normal-border-color, 15%), .5);
   }
 
   // Disabled comes first so active can properly restyle
   &.disabled,
   &:disabled {
-    color: color-yiq($background);
-    background-color: $background;
-    border-color: $border;
+    color: $normal-color;
+    background-color: $normal-background;
+    border-color: $normal-border-color;
   }
 
   &:not(:disabled):not(.disabled):active,
   &:not(:disabled):not(.disabled).active {
-    color: color-yiq($active-background);
+    color: $active-color;
     background-color: $active-background;
-    border-color: $active-border;
+    border-color: $active-border-color;
 
     &:focus {
-      box-shadow: 0 0 0 $btn-focus-width rgba(mix(color-yiq($background), $border, 15%), .5);
+      box-shadow: 0 0 0 $btn-focus-width rgba(mix(color-yiq($normal-background), $normal-border-color, 15%), .5);
     }
   }
 }
