@@ -28,3 +28,15 @@
     @return $light;
   }
 }
+
+//==
+//== https://stackoverflow.com/questions/12328259/how-do-you-strip-the-unit-from-any-number-in-sass/12335841#12335841
+//== ===================================================================== ==//
+
+@function nnStripUnits($number) {
+  @if type-of($number) == 'number' and not unitless($number) {
+    @return $number / ($number * 0 + 1);
+  }
+
+  @return $number;
+}

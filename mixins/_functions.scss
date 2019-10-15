@@ -14,3 +14,19 @@
   $base: if(variable_exists(rhythm-base-font-size), $rhythm-base-font-size, 16px);
   @return ($font-size / $base) * 1em;
 }
+
+@function nnResponsiveFontSize($fzMin, $fzMax, $wMin, $wMax, $units: px) {
+  $fzMin: nnStripUnits($fzMin);
+  $fzMax: nnStripUnits($fzMax);
+  $wMin: nnStripUnits($wMin);
+  $wMax: nnStripUnits($wMax);
+
+  $k: ($fzMax - $fzMin)/($wMax - $wMin);
+  $b: ($fzMin - $k * $wMin);
+
+  @if ($b < 0) {
+    @return calc(#{$k * 100vw} - #{$b * -1}#{$units});
+  } @else {
+    @return calc(#{$k * 100vw} + #{$b}#{$units});
+  }
+}
